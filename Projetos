@@ -1,0 +1,382 @@
+import numpy as np
+from numpy import linalg, transpose
+import matplotlib.pyplot as plt
+
+
+def calcular_raizes(a, b, c):
+    delta = (b ** 2) - (4 * a * c)
+    if delta < 0:
+        delta *= -1
+        raiz1 = (f"{(-b / (2 * a))} + {delta ** 0.5:.1f}i")
+        raiz2 = (f"{(-b / (2 * a))} - {delta ** 0.5:.1f}i")
+        print(f'as raizes são: x1= {raiz1:.1f} e x2 = {raiz2:.1f}')
+    else:
+        x1 = (((-1) * b) + (delta ** 0.5)) / (2 * a)
+        x2 = (((-1) * b) - (delta ** 0.5)) / (2 * a)
+        print(f" ► As raízes da função apresentada são {x1:.1f} e {x2:.1f}")
+
+def funcao_x(a, b, c):
+    x = float(input("Digite uma valor para o x: "))
+    fx = ((a * (x ** 2)) + (b * x) + c)
+    print(f" ► A função f({x}) é igual a {fx}")
+
+
+def vertice(a, b, c):
+
+    d = (b ** 2) - 4 * a * c
+
+    xv = ((-1) * b) / (2 * a)
+    yv = ((-1) * d) / (4 * a)
+
+    print(f" ► Os vértices são {xv:.1f} e {yv:.1f}")
+    if a < 0:
+        print("► A função apresenta ponto de máximo")
+    else:
+        print("► A função tem ponto de mínimo!")
+
+
+def grafico_segundo(a, b, c):
+    delta = ((b) ** 2) - (4 * a * c)
+    if delta > 0:
+        valor_x1 = (-(b) + ((delta) ** (1 / 2))) / (2 * a)
+        valor_x2 = (-(b) - ((delta) ** (1 / 2))) / (2 * a)
+        valor_xV = -(b) / (2 * a)
+        valor_yV = -(delta) / (4 * a)
+        print("Delta=", delta)
+        print("=" * 20)
+        print("X1=", valor_x1)
+        print("=" * 20)
+        print("X2=", valor_x2)
+        print("=" * 20)
+        print("Xv=", valor_xV)
+        print("=" * 20)
+        print("Yv=", valor_yV)
+        print("=" * 20)
+
+        eixo_x = []
+        eixo_y = []
+        zero = []
+
+        variacao = abs(valor_x1 - valor_x2)
+        if variacao < 3:
+            variacao = 3
+        print(variacao)
+
+        for x in np.arange(valor_x1 - variacao, valor_x2 + variacao, variacao / 100):
+            y = a * (x ** 2) + b * (x) + c
+            eixo_x.append(x)
+            eixo_y.append(y)
+            zero.append(0.0)
+        plt.plot(eixo_x, eixo_y, color="blue")
+        plt.plot(eixo_x, zero, color="black")
+        plt.show()
+    else:
+        print("• Delta menor que zero!")
+        print("=-" * 50)
+
+
+###################################################################################################################
+
+# exponencial
+
+def existencia():
+    a = float(input("Digite o valor de a: "))
+    if a > 0:
+        print("A função dada existe!")
+    else:
+        print("Ela não existe!")
+
+
+def cres_decres():
+    a = float(input("Digite o valor de a: "))
+    if a > 1:
+        print("Ela é uma função crescente!")
+    else:
+        print("Ela é uma função decrescente!!")
+
+
+def expo_x():
+    a = float(input("Digite o valor de a: "))
+    b = float(input("Digite o valor de b: "))
+    x = float(input("Digite um valor para x: "))
+    calculo = a * (b ** x)
+    print(calculo)
+
+
+def grafic_expo():
+    # funcao exponencial
+    def funcaoExponencial(base, expoente):
+        return (base ** expoente)
+
+    # cria vetor de -7 a 7 , aumentando de 0,1
+    vetorX = np.arange(-7, 7, 0.1)
+
+    # coeficientes
+    base = float(input("•Digite o valor da base: "))
+    expoente = float(input("•Digite o valor do expoente: "))
+
+    # encontra os valores de y para cada valor de x
+    vetorY = []
+    for expo in vetorX:
+        vetorY.append(funcaoExponencial(base, expo))
+
+    # prepara para salvar o grafico
+    fig = plt.figure(figsize=(5, 5))
+
+    # desenha o grafico
+    plt.plot(vetorX, vetorY, label='Funcao Exponencial', color='g')
+
+    plt.title(f'f(x) = {base}^{expoente}')
+    plt.xlabel('eixo x')
+    plt.ylabel('eixo y')
+    plt.legend()
+    plt.grid(True, which='both')
+    plt.axhline(y=0, color='k')
+    plt.axvline(x=0, color='k')
+    plt.show()
+    fig.savefig('FExp.png')
+
+#########################################################################################
+# matriz
+def matriz():
+    nlinha = int(input("Digite o número de linhas: "))
+    ncoluna = int(input("Digite o número de colunas: "))
+    matriz = [0] * nlinha
+    for linha in range(nlinha):
+        matriz[linha] = [0] * ncoluna
+    print(matriz)
+    for linha in range(nlinha):
+        for coluna in range(ncoluna):
+            matriz[linha][coluna] = float(input("Digite um número para compor a matriz: "))
+    for linha in range(nlinha):
+        for coluna in range(ncoluna):
+            print(f"[{matriz[linha][coluna]}]", end='')
+        print()
+
+
+def m_quadrada():
+    nlinha = int(input("Digite o número de linhas: "))
+    ncoluna = int(input("Digite o número de colunas: "))
+    if nlinha == ncoluna:
+        print("É uma matriz quadrada! ")
+    else:
+        print("Não é uma matriz quadrada! ")
+
+
+def determinante():
+    nlinha = int(input("Digite o número de linhas: "))
+    ncoluna = int(input("Digite o número de colunas: "))
+    if nlinha == ncoluna:
+        matriz = [0] * nlinha
+        for linha in range(nlinha):
+            matriz[linha] = [0] * ncoluna
+        print(matriz)
+        for linha in range(nlinha):
+            for coluna in range(ncoluna):
+                matriz[linha][coluna] = float(input("Digite um número para compor a matriz: "))
+        for linha in range(nlinha):
+            for coluna in range(ncoluna):
+                print(f"[{matriz[linha][coluna]}]", end='')
+            print()
+        print("A determinante da matriz é: ")
+        print(np.linalg.det(matriz))
+    else:
+        print("Matriz não é quadrada!")
+
+def multiplicacao():
+
+    nlinha1 = int(input("Digite o número de linhas: "))
+    ncoluna1 = int(input("Digite o número de colunas: "))
+    matriz1 = [0] * nlinha1
+    nlinha2 = int(input("Digite o número de linhas: "))
+    ncoluna2 = int(input("Digite o número de colunas: "))
+    matriz2 = [0] * nlinha2
+
+    if ncoluna1 == nlinha2:
+        for linha in range(nlinha1):
+            matriz1[linha] = [0] * ncoluna1
+        for linha in range(nlinha1):
+            for coluna in range(ncoluna1):
+                matriz1[linha][coluna] = float(input("Digite um número para compor a matriz: "))
+        for linha in range(nlinha1):
+            for coluna in range(ncoluna1):
+                print(f"[{matriz1[linha][coluna]}]", end='')
+            print()
+
+        for linha in range(nlinha2):
+            matriz2[linha] = [0] * ncoluna2
+        for linha in range(nlinha2):
+            for coluna in range(ncoluna2):
+                matriz2[linha][coluna] = float(input("Digite um número para compor a matriz: "))
+        for linha in range(nlinha2):
+            for coluna in range(ncoluna2):
+                print(f"[{matriz2[linha][coluna]}]", end='')
+            print()
+        result = np.dot(matriz1, matriz2)
+        print("A multiplicação das matrizes é :")
+        print(result)
+    else:
+        print("Matriz não pode efetuar a multiplicação!")
+
+def transposta():
+    nlinha = int(input("Digite o número de linhas: "))
+    ncoluna = int(input("Digite o número de colunas: "))
+    matriz = [0] * nlinha
+    for linha in range(nlinha):
+        matriz[linha] = [0] * ncoluna
+    print(matriz)
+    for linha in range(nlinha):
+        for coluna in range(ncoluna):
+            matriz[linha][coluna] = float(input("Digite um número para compor a matriz: "))
+    for linha in range(nlinha):
+        for coluna in range(ncoluna):
+            print(f"[{matriz[linha][coluna]}]", end='')
+        print()
+    print("A matriz transposta é :")
+    print(transpose(matriz))
+
+while True:
+    print("=-" * 50)
+    print("CALCULADORA BSI")
+    print(" ◄ O que deseja calcular:")
+    print("")
+    print("• Função segundo grau  [1]")
+    print("• Função exponencial   [2]")
+    print("• Matrizes             [3]")
+    calcular = int(input("► digite aqui: "))
+    print("=-" * 50)
+
+    if calcular == 1:
+        print("MENU Funções 2 grau")
+        print("- Raizes          [1]")
+        print("- f(x)            [2]")
+        print("- V(x,y)          [3]")
+        print("- Gerar Grafico   [4]")
+        a = float(input("• Digite o valor de a: "))
+        b = float(input("• Digite o valor de b: "))
+        c = float(input("• Digite o valor de c: "))
+        segundo_grau = int(input("• O que quer fazer: "))
+        print("=-" * 50)
+        if segundo_grau == 1:
+            calcular_raizes(a, b, c)
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif segundo_grau == 2:
+            funcao_x(a, b, c)
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif segundo_grau == 3:
+            vertice(a, b, c)
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif segundo_grau == 4:
+            grafico_segundo(a, b, c)
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+
+    if calcular == 2:
+        print("MENU Funções Exponenciais")
+        print("- Existência                          [1]")
+        print("- crescente ou decrescente            [2]")
+        print("- f(x)                                [3]")
+        print("- Gerar Grafico                       [4]")
+        print("=-" * 50)
+        expo = int(input("• O que quer fazer: "))
+        if expo == 1:
+            existencia()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif expo == 2:
+            cres_decres()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif expo == 3:
+            expo_x()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif expo == 4:
+            grafic_expo()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+
+    if calcular == 3:
+        print("MENU Matrizes:")
+        print("- matriz              [1]")
+        print("- matriz quadrada     [2]")
+        print("- determinante        [3]")
+        print("- multiplicação       [4]")
+        print("- transposta          [5]")
+        m = int(input("• O que quer fazer: "))
+        print("=-" * 50)
+        if m == 1:
+            matriz()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif m == 2:
+            m_quadrada()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif m == 3:
+            determinante()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif m == 4:
+            multiplicacao()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
+        elif m == 5:
+            transposta()
+            sn = int(input(" ► Quer continuar? [1] para SIM [2] NÃO: "))
+            if sn == 1:
+                continue
+            elif sn == 2:
+                print("TCHAU!")
+                break
