@@ -13,3 +13,6 @@ if vetor.count(argPesquisa) == 0:
 else:
     print("Dado encontrado na posição: ",
 vetor.index(argPesquisa))
+
+
+print("caceta")
